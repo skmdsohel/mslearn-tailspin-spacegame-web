@@ -1,17 +1,17 @@
 trigger:
   - '*'
   
-  pool:
+pool:
     vmImage: 'ubuntu-18.04'
     demands:
     - npm
   
-  variables:
+variables:
     buildConfiguration: 'Release'
     wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
     dotnetSdkVersion: '3.1.300'
   
-  steps:
+steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
     inputs:
@@ -65,12 +65,4 @@ trigger:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
     condition: succeeded()
-  This version introduces this DotNetCoreCLI@2 build task.
-  ymlCopy
-  - task: DotNetCoreCLI@2
-    displayName: 'Run unit tests - $(buildConfiguration)'
-    inputs:
-      command: 'test'
-      arguments: '--no-build --configuration $(buildConfiguration)'
-      publishTestResults: true
-      projects: '**/*.Tests.csproj'
+  
